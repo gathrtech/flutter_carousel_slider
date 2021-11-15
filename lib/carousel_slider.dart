@@ -34,25 +34,29 @@ class CarouselSlider extends StatefulWidget {
 
   final int? itemCount;
 
-  CarouselSlider(
-      {required this.items,
-      required this.options,
-      carouselController,
-      Key? key})
-      : itemBuilder = null,
+  final bool? padEnds;
+
+  CarouselSlider({
+    required this.items,
+    required this.options,
+    this.padEnds,
+    carouselController,
+    Key? key,
+  })  : itemBuilder = null,
         itemCount = items != null ? items.length : 0,
         _carouselController = carouselController ??
             CarouselController() as CarouselControllerImpl,
         super(key: key);
 
   /// The on demand item builder constructor
-  CarouselSlider.builder(
-      {required this.itemCount,
-      required this.itemBuilder,
-      required this.options,
-      carouselController,
-      Key? key})
-      : items = null,
+  CarouselSlider.builder({
+    required this.itemCount,
+    required this.itemBuilder,
+    required this.options,
+    this.padEnds,
+    carouselController,
+    Key? key,
+  })  : items = null,
         _carouselController = carouselController ??
             CarouselController() as CarouselControllerImpl,
         super(key: key);
@@ -264,6 +268,7 @@ class CarouselSliderState extends State<CarouselSlider>
   @override
   Widget build(BuildContext context) {
     return getGestureWrapper(PageView.builder(
+      padEnds: widget.padEnds ?? true,
       physics: widget.options.scrollPhysics,
       scrollDirection: widget.options.scrollDirection,
       pageSnapping: widget.options.pageSnapping,
