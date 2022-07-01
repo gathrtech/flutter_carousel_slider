@@ -36,12 +36,15 @@ class CarouselSlider extends StatefulWidget {
 
   final bool? padEnds;
 
+  final Clip? clipBehavior;
+
   CarouselSlider({
     required this.items,
     required this.options,
     this.padEnds,
     carouselController,
     Key? key,
+    this.clipBehavior,
   })  : itemBuilder = null,
         itemCount = items != null ? items.length : 0,
         _carouselController = carouselController ??
@@ -56,6 +59,7 @@ class CarouselSlider extends StatefulWidget {
     this.padEnds,
     carouselController,
     Key? key,
+    this.clipBehavior,
   })  : items = null,
         _carouselController = carouselController ??
             CarouselController() as CarouselControllerImpl,
@@ -276,6 +280,7 @@ class CarouselSliderState extends State<CarouselSlider>
       reverse: widget.options.reverse,
       itemCount: widget.options.enableInfiniteScroll ? null : widget.itemCount,
       key: widget.options.pageViewKey,
+      clipBehavior: widget.clipBehavior ?? Clip.hardEdge,
       onPageChanged: (int index) {
         int currentPage = getRealIndex(index + carouselState!.initialPage,
             carouselState!.realPage, widget.itemCount);
